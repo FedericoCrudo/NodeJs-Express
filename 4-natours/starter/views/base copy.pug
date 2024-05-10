@@ -1,0 +1,21 @@
+//- pug è sensibile agli spazi bianchi 
+doctype html 
+html 
+  head 
+    //- per richiamare il codice js all'interno di una stringa,un po come template literal
+    title Natours #{tour}
+    //- per utilizzare gli attributi bisogna utilizzare le parentesi
+    link(rel='stylesheet' href="css/style.css")
+    link(rel='icon' type='image/png' href='img/logo.png')
+  body 
+    //-questo permette di recuperare le informazioni passante all'interno della rotta "/"  Tour e User
+    //-questo codice viene chiamato Buffered Code
+    h1= tour
+    //- è possibile utilizzare codice javascript
+    h2=user.toUpperCase()
+    //- non buffered code=> codice che non aggiungerà nulla all'output
+    - const x=9;
+    //- Buffered Code
+    h2=2*x
+    //- h1 The park Camper
+    p  This just some text
