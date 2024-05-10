@@ -1,0 +1,27 @@
+# per indicare il template base da usare
+# aplhine versione linux
+FROM node:lts-alphine
+# impostare la directory di lavoro 
+WORKDIR /app
+
+COPY package*.json ./
+
+# tutte le dipendenza di sviluppo non verranno installate
+COPY client/package*.json client/
+RUN npm install-client --only=production
+
+COPY server/package*.json server/
+RUN npm install-server --only=production
+
+COPY client/ client/
+RUN npm run build --prefix client
+
+COPY server/ server/
+
+# node dispone di meno privilegi 
+USER node
+# operazioni da effettuare all'avvio,eseguira il comando indicato
+# tutti questi comandi verranno eseguiti come root=> problema di sicurezza=> privilegio minimo
+CMD ["npm","start","--prefix","server"]
+# per definire la porta da utilizzare
+EXPOSE 8000
